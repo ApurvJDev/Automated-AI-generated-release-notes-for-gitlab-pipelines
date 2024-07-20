@@ -1,0 +1,29 @@
+from groq import Groq
+
+client = Groq(api_key="<GROQ_API_KEY>")
+
+f = open("release_notes.md", "r+")   
+data = f.read()
+
+completion = client.chat.completions.create(
+    model="llama3-70b-8192",
+    messages=[
+        {
+            "role": "user",
+            "content": "Your job is to analyze release notes and then generate a response. DO NOT TRY TO COMMUNICATE WITH THE USER. I am providing you with a list of changes made between 2 releases. Generate descriptive release notes based on the list of changes that is provided. Categorize changes into different headings, for example:- New Features, Improvements, Bug Fixes etc. Maintin a professional yet approachable tone. Use clear, non-technical language where possible. Use bullet points for individual changes and subheadings for different categories. These are the list of changes:\n "+ data
+        }
+    ],
+    temperature=1,
+    max_tokens=1024,
+    top_p=1,
+    stream=True,
+    stop=None,
+)
+text = ""
+for chunk in completion:
+    # print(chunk.choices[0].delta.content or "", end="")
+    text += chunk.choices[0].delta.content or ""
+    
+print(text) 
+f.write("\n"+ text)   
+f.close()
