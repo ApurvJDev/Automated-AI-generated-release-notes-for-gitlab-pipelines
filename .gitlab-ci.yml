@@ -25,8 +25,6 @@ bump_tag:
     - git config --global user.email "${GITLAB_EMAIL}"
     - git config --global user.name "${GITLAB_USER}"
   script:
-    # Checking if file path is getting read
-    # - echo $STACK_VERSION_FILE
     - export LATEST_TAG=$(cat .version)
     - echo "$LATEST_TAG"
 
@@ -82,45 +80,6 @@ generate_descriptive_notes:
     # - pip install google-generativeai
   script:
     - python nimLlama.py
-    # - |
-    #   curl "https://api.groq.com/openai/v1/chat/completions" \
-    #   -X POST \
-    #   -H "Content-Type: application/json" \
-    #   -H "Authorization: Bearer ${GROQ_API_KEY}" \
-    #   -d '{
-    #      "messages": [
-    #        {
-    #          "role": "user",
-    #          "content": "Write a senntence on AI"
-    #        }
-    #      ],
-    #      "model": "llama3-8b-8192",
-    #      "temperature": 1,
-    #      "max_tokens": 1024,
-    #      "top_p": 1,
-    #      "stream": true,
-    #      "stop": null
-    #    }'
-    # - CHANGELOG=$(cat release_notes.md)
-    # - |
-    #   result=$(curl -s https://integrate.api.nvidia.com/v1/chat/completions \
-    #   -H "Content-Type: application/json" \
-    #   -H "Authorization: Bearer <NVIDIA NIM API KEY>" \
-    #   -d '{
-    #     "model": "meta/llama3-70b-instruct",
-    #     "messages": [{"role":"user","content":"Generate descriptive release notes:'"$CHANGELOG"'"}],
-    #     "temperature": 1,   
-    #     "top_p": 1,
-    #     "max_tokens": 1024,
-    #     "stream": true                
-    #   }')
-    # Extract the content from the response
-    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -o '"content":"[^"]*"' | sed 's/"content":"\([^"]*\)"/\1/g') 
-    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -oP '(?<="content":")[^"]*' | tr '\n' ' ')
-    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -oE '{"id":.*' | jq -r '.choices[].delta.content' | tr '\n' ' ')
-    # - DESCRIPTIVE_NOTES=$(echo "$result" | sed -n 's/^data://p' | jq -r '.choices[].delta.content' | tr '\n' ' ')
-    # - DESCRIPTIVE_NOTES=$(echo "$result" | awk '/^data:/ {print substr($0, 7)}' | jq -r '.choices[].delta.content' | tr    '\n' ' ')
-    # - echo "$DESCRIPTIVE_NOTES"
   artifacts:
     paths:
       - release_notes.md
@@ -141,4 +100,3 @@ release_job:
     description: release_notes.md
     tag_name: '$CI_COMMIT_TAG'
     ref: '$CI_COMMIT_SHA'
-
