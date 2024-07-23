@@ -1,0 +1,40 @@
+categories:
+  feature: Features
+  features: Features
+  Feature: Features
+  Features: Features
+  FEATURE: Features
+  FEATURES: Features
+  feat: Features
+  f: Features
+  update: Updated
+  updates: Updated
+  updated: Updated
+  Update: Updated
+  Updates: Updated
+  Updated: Updated
+  UPDATE: Updated
+  UPDATES: Updated
+  UPDATED: Updated
+  up: Updated
+  bug: Bug fixes
+  bug fix: Bug fixes
+  bug fixed: Bug fixes
+  bug fixes: Bug fixes
+  bug Fix: Bug fixes
+  bug Fixed: Bug fixes
+  bug Fixes: Bug fixes
+  Bug: Bug fixes
+  Bug fix: Bug fixes
+  Bug fixed: Bug fixes
+  Bug fixes: Bug fixes
+  Bug Fix: Bug fixes
+  Bug Fixed: Bug fixes
+  Bug Fixes: Bug fixes
+  BUG: Bug fixes
+  BUG FIX: Bug fixes
+  BUG FIXED: Bug fixes
+  BUG FIXES: Bug fixes
+  bf: Bug fixes
+  performance: Performance improvements
+
