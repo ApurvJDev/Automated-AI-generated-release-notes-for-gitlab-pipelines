@@ -1,0 +1,39 @@
+# - |
+    #   curl "https://api.groq.com/openai/v1/chat/completions" \
+    #   -X POST \
+    #   -H "Content-Type: application/json" \
+    #   -H "Authorization: Bearer ${GROQ_API_KEY}" \
+    #   -d '{
+    #      "messages": [
+    #        {
+    #          "role": "user",
+    #          "content": "Write a senntence on AI"
+    #        }
+    #      ],
+    #      "model": "llama3-8b-8192",
+    #      "temperature": 1,
+    #      "max_tokens": 1024,
+    #      "top_p": 1,
+    #      "stream": true,
+    #      "stop": null
+    #    }'
+    # - CHANGELOG=$(cat release_notes.md)
+    # - |
+    #   result=$(curl -s https://integrate.api.nvidia.com/v1/chat/completions \
+    #   -H "Content-Type: application/json" \
+    #   -H "Authorization: Bearer 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" \
+    #   -d '{
+    #     "model": "meta/llama3-70b-instruct",
+    #     "messages": [{"role":"user","content":"Generate descriptive release notes:'"$CHANGELOG"'"}],
+    #     "temperature": 1,   
+    #     "top_p": 1,
+    #     "max_tokens": 1024,
+    #     "stream": true                
+    #   }')
+    # Extract the content from the response
+    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -o '"content":"[^"]*"' | sed 's/"content":"\([^"]*\)"/\1/g') 
+    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -oP '(?<="content":")[^"]*' | tr '\n' ' ')
+    # - DESCRIPTIVE_NOTES=$(echo "$result" | grep -oE '{"id":.*' | jq -r '.choices[].delta.content' | tr '\n' ' ')
+    # - DESCRIPTIVE_NOTES=$(echo "$result" | sed -n 's/^data://p' | jq -r '.choices[].delta.content' | tr '\n' ' ')
+    # - DESCRIPTIVE_NOTES=$(echo "$result" | awk '/^data:/ {print substr($0, 7)}' | jq -r '.choices[].delta.content' | tr    '\n' ' ')
+    # - echo "$DESCRIPTIVE_NOTES"
