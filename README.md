@@ -6,7 +6,6 @@ https://github.com/user-attachments/assets/ed38a767-9f15-49fa-8396-103c19a6bb98
 
 - https://docs.gitlab.com/ee/development/changelog.html
 - https://docs.gitlab.com/ee/api/repositories.html
-- https://docs.gitlab.com/ee/development/changelog.html
 
 # Important information regarding model parameters
 
